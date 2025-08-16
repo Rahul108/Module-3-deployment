@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-stable
+  labels:
+    app: node-app
+    version: stable
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: node-app
+      version: stable
+  template:
+    metadata:
+      labels:
+        app: node-app
+        version: stable
+    spec:
+      containers:
+      - name: node-app
+        image: your-dockerhub-username/node-express-app:v1.0.0
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PORT
+          value: "5000"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /api
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5

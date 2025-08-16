@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app-rolling-service
+  labels:
+    app: node-app
+spec:
+  selector:
+    app: node-app
+    strategy: rolling
+  ports:
+  - port: 80
+    targetPort: 5000
+    protocol: TCP
+  type: ClusterIP
