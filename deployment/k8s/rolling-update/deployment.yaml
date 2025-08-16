@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: your-dockerhub-username/node-express-app:v1.0.0
+        image: prefixsarker/node-express-app:v1.0.0
         ports:
         - containerPort: 5000
         env:
